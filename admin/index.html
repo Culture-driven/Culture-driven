@@ -1,112 +1,436 @@
-Save current admin page
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Culture Driven | Admin</title>
+  <meta name="theme-color" content="#f8f5ee">
+  <title>Culture Driven | Admin Dashboard</title>
   <style>
     * { box-sizing: border-box; }
     body {
-      margin: 0; min-height: 100vh; display: grid; place-items: center;
-      padding: 20px; background: #f4f4f4; color: #111;
+      margin: 0; background: #f7f5f0; color: #24231f;
       font-family: Arial, sans-serif;
     }
-    main {
-      background: white; width: 100%; max-width: 390px;
-      padding: 30px 24px; border: 1px solid #ddd;
+    header {
+      background: #fff; border-bottom: 1px solid #e6e1d8;
+      padding: 20px; display: flex; justify-content: space-between;
+      align-items: center; gap: 12px;
     }
-    h1 { font-size: 25px; letter-spacing: 2px; }
-    p { color: #555; line-height: 1.5; }
-    label { display: block; margin: 20px 0 8px; }
-    input, button {
-      width: 100%; padding: 14px; font-size: 16px;
+    header h1 { font-size: 18px; letter-spacing: 2px; margin: 0; }
+    main { max-width: 1000px; margin: auto; padding: 20px; }
+    .panel {
+      background: white; border: 1px solid #e6e1d8;
+      padding: 20px; margin-bottom: 20px; border-radius: 8px;
     }
-    input { border: 1px solid #999; }
-    button {
-      margin-top: 14px; background: #111; color: white;
-      border: 0; cursor: pointer;
+    h2 { font-size: 21px; margin-top: 0; }
+    label { display: block; font-size: 14px; margin: 14px 0 6px; }
+    input, textarea, button {
+      width: 100%; padding: 13px; font-size: 15px;
+      border-radius: 5px;
     }
-    #message { overflow-wrap: anywhere; }
+    input, textarea { border: 1px solid #d5d0c7; background: white; }
+    textarea { min-height: 85px; resize: vertical; }
+    button { border: 0; cursor: pointer; font-weight: 600; }
+    button:disabled { opacity: .6; cursor: wait; }
+    .primary { background: #26251f; color: white; margin-top: 18px; }
+    .secondary { background: #eeeae2; color: #24231f; }
+    .danger { background: #f8e7e4; color: #8c2118; }
+    .small { width: auto; padding: 10px 12px; font-size: 13px; }
+    .top-actions { display: flex; gap: 8px; align-items: center; }
+    .top-actions button { width: auto; }
+    .grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .product {
+      border: 1px solid #e6e1d8; border-radius: 7px;
+      padding: 12px; min-width: 0;
+    }
+    .product img {
+      width: 100%; height: 150px; object-fit: cover;
+      background: #f2f0eb; border-radius: 4px;
+    }
+    .product h3 { font-size: 16px; overflow-wrap: anywhere; }
+    .muted { color: #77736b; font-size: 13px; line-height: 1.5; }
+    .price { font-weight: 700; }
+    .old-price { text-decoration: line-through; color: #77736b; }
+    .actions { display: flex; gap: 7px; margin-top: 12px; }
+    .actions button { flex: 1; padding: 10px 5px; font-size: 13px; }
+    #message { white-space: pre-wrap; overflow-wrap: anywhere; }
+    [hidden] { display: none !important; }
+    @media (max-width: 480px) {
+      header { padding: 15px; }
+      header h1 { font-size: 15px; }
+      main { padding: 12px; }
+      .panel { padding: 15px; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .product { padding: 8px; }
+      .product img { height: 115px; }
+    }
   </style>
 </head>
 <body>
-  <main>
-    <h1>CULTURE DRIVEN</h1>
-    <p>Administrator sign in</p>
+<header>
+  <h1>CULTURE DRIVEN</h1>
+  <div class="top-actions">
+    <span class="muted">ADMIN</span>
+    <button id="logout" class="secondary small" type="button">Log out</button>
+  </div>
+</header>
+
+<main>
+  <section id="loginPanel" class="panel" hidden>
+    <h2>Administrator sign in</h2>
     <form id="loginForm">
       <label for="password">Admin password</label>
-      <input id="password" type="password" autocomplete="current-password"
-        required maxlength="1024" placeholder="Enter your password">
-      <button type="submit">Sign in</button>
+      <input id="password" type="password"
+        autocomplete="current-password" required maxlength="1024">
+      <button class="primary" type="submit">Sign in</button>
     </form>
-    <p id="message" role="status"></p>
-    <section id="dashboard" hidden>
-      <h2>Admin access confirmed</h2>
-      <p>Your login works. Product management is the next step.</p>
-      <button id="logout" type="button">Log out</button>
-    </section>
-  </main>
-  <script>
-    const form = document.getElementById("loginForm");
-    const message = document.getElementById("message");
-    const dashboard = document.getElementById("dashboard");
+  </section>
 
-    async function checkSession() {
-      try {
-        const r = await fetch("/api/admin", { credentials: "same-origin" });
-        const d = await r.json();
-        if (r.ok && d.authenticated) {
-          form.hidden = true;
-          dashboard.hidden = false;
-        }
-      } catch {
-        message.textContent = "Could not connect. Please try again.";
+  <section id="dashboard" hidden>
+    <div class="panel">
+      <h2>Product management</h2>
+      <p class="muted">Add products and manage your store catalogue.</p>
+      <p id="message" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="panel">
+      <h2 id="formTitle">Add a product</h2>
+      <form id="productForm">
+        <input id="productId" type="hidden">
+
+        <label for="name">Product name *</label>
+        <input id="name" maxlength="200" required
+          placeholder="e.g. Classic Native Outfit">
+
+        <label for="description">Description</label>
+        <textarea id="description" maxlength="5000"
+          placeholder="Describe your product"></textarea>
+
+        <label for="price">Original price (₦) *</label>
+        <input id="price" type="number" min="1" step="0.01"
+          required placeholder="25000">
+
+        <label for="discount">Discount price (₦), optional</label>
+        <input id="discount" type="number" min="0.01" step="0.01"
+          placeholder="20000">
+
+        <label for="photo">Product photo URL</label>
+        <input id="photo" type="url"
+          placeholder="https://example.com/product.jpg">
+        <p class="muted">
+          For now, use a publicly accessible image URL.
+          Direct photo uploads will be added separately.
+        </p>
+
+        <label for="options">Available sizes or options</label>
+        <input id="options" placeholder="Small, Medium, Large">
+
+        <button id="saveButton" class="primary" type="submit">
+          Save product
+        </button>
+        <button id="cancelEdit" class="secondary" type="button" hidden>
+          Cancel editing
+        </button>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h2>Your products</h2>
+      <p id="productCount" class="muted">Loading products...</p>
+      <div id="products" class="grid"></div>
+      <button id="refresh" class="secondary" type="button"
+        style="margin-top:16px">Refresh products</button>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const loginPanel = $("loginPanel");
+  const dashboard = $("dashboard");
+  const loginForm = $("loginForm");
+  const productForm = $("productForm");
+  const message = $("message");
+  const productsBox = $("products");
+  let products = [];
+  let busy = false;
+
+  function say(text) {
+    message.textContent = text;
+  }
+
+  async function api(url, options = {}) {
+    const response = await fetch(url, {
+      credentials: "same-origin",
+      cache: "no-store",
+      ...options,
+      headers: {
+        ...(options.body ? {"Content-Type": "application/json"} : {}),
+        ...(options.headers || {})
       }
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data.error || "Request failed (" + response.status + ").");
+    }
+    return data;
+  }
+
+  function showLogin() {
+    dashboard.hidden = true;
+    loginPanel.hidden = false;
+    $("logout").hidden = true;
+  }
+
+  function showDashboard() {
+    loginPanel.hidden = true;
+    dashboard.hidden = false;
+    $("logout").hidden = false;
+  }
+
+  async function checkSession() {
+    try {
+      const data = await api("/api/admin");
+      if (data.authenticated) {
+        showDashboard();
+        await loadProducts();
+      } else {
+        showLogin();
+      }
+    } catch {
+      showLogin();
+      say("Could not check your login. Please try signing in again.");
+    }
+  }
+
+  loginForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    const button = loginForm.querySelector("button");
+    button.disabled = true;
+    say("Signing in...");
+
+    try {
+      await api("/api/admin", {
+        method: "POST",
+        body: JSON.stringify({
+          action: "login",
+          password: $("password").value
+        })
+      });
+      loginForm.reset();
+      say("");
+      showDashboard();
+      await loadProducts();
+    } catch (error) {
+      say(error.message);
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  $("logout").addEventListener("click", async () => {
+    try {
+      await api("/api/admin", {
+        method: "POST",
+        body: JSON.stringify({action: "logout"})
+      });
+      products = [];
+      productsBox.replaceChildren();
+      showLogin();
+      say("You have logged out.");
+    } catch (error) {
+      say("Could not log out: " + error.message);
+    }
+  });
+
+  function resetForm() {
+    productForm.reset();
+    $("productId").value = "";
+    $("formTitle").textContent = "Add a product";
+    $("saveButton").textContent = "Save product";
+    $("cancelEdit").hidden = true;
+  }
+
+  $("cancelEdit").addEventListener("click", resetForm);
+
+  productForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    if (busy) return;
+
+    const id = $("productId").value;
+    const price = Number($("price").value);
+    const discountText = $("discount").value.trim();
+    const discount = discountText === "" ? null : Number(discountText);
+    const photo = $("photo").value.trim();
+    const options = $("options").value
+      .split(",").map(v => v.trim()).filter(Boolean);
+
+    if (!Number.isFinite(price) || price <= 0) {
+      say("Enter a valid original price.");
+      return;
+    }
+    if (discount !== null &&
+        (!Number.isFinite(discount) || discount <= 0 || discount >= price)) {
+      say("The discount price must be lower than the original price.");
+      return;
     }
 
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      message.textContent = "Signing in...";
-      try {
-        const r = await fetch("/api/admin", {
-          method: "POST",
-          credentials: "same-origin",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            action: "login",
-            password: document.getElementById("password").value
-          })
-        });
-        const d = await r.json();
-        if (!r.ok) throw new Error(d.error || "Sign-in failed.");
-        form.reset();
-        form.hidden = true;
-        dashboard.hidden = false;
-        message.textContent = "";
-      } catch (e) {
-        message.textContent = e.message || "Unable to sign in.";
-      }
-    });
+    const payload = {
+      name: $("name").value.trim(),
+      description: $("description").value.trim(),
+      price,
+      discount_price: discount,
+      photos: photo ? [photo] : [],
+      options
+    };
 
-    document.getElementById("logout").addEventListener("click", async () => {
-      try {
-        await fetch("/api/admin", {
-          method: "POST",
-          credentials: "same-origin",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "logout" })
-        });
-        dashboard.hidden = true;
-        form.hidden = false;
-        message.textContent = "You have logged out.";
-      } catch {
-        message.textContent = "Could not log out. Please try again.";
-      }
-    });
+    if (!payload.name) {
+      say("Enter a product name.");
+      return;
+    }
 
-    checkSession();
-  </script>
+    busy = true;
+    $("saveButton").disabled = true;
+    say(id ? "Updating product..." : "Saving product...");
+
+    try {
+      const data = await api("/api/products", {
+        method: id ? "PUT" : "POST",
+        body: JSON.stringify(id ? {...payload, id: Number(id)} : payload)
+      });
+      say(id ? "Product updated." : "Product saved successfully.");
+      resetForm();
+      await loadProducts();
+    } catch (error) {
+      say(error.message);
+    } finally {
+      busy = false;
+      $("saveButton").disabled = false;
+    }
+  });
+
+  function makeElement(tag, text, className) {
+    const element = document.createElement(tag);
+    if (text !== undefined) element.textContent = text;
+    if (className) element.className = className;
+    return element;
+  }
+
+  function renderProducts() {
+    productsBox.replaceChildren();
+    $("productCount").textContent =
+      products.length + (products.length === 1 ? " product" : " products");
+
+    if (!products.length) {
+      productsBox.append(makeElement("p",
+        "No products yet. Add your first product using the form above.",
+        "muted"));
+      return;
+    }
+
+    for (const product of products) {
+      const card = makeElement("article", undefined, "product");
+      const photos = Array.isArray(product.photos) ? product.photos : [];
+      const photo = photos[0];
+
+      if (typeof photo === "string" &&
+          /^https?:\/\//i.test(photo)) {
+        const img = document.createElement("img");
+        img.src = photo;
+        img.alt = product.name || "Product";
+        img.loading = "lazy";
+        img.onerror = () => img.remove();
+        card.append(img);
+      }
+
+      card.append(makeElement("h3", product.name || "Unnamed product"));
+      card.append(makeElement("p",
+        "₦" + Number(product.price).toLocaleString("en-NG"),
+        "price"));
+
+      if (product.discount_price != null) {
+        card.append(makeElement("p",
+          "Discount: ₦" +
+          Number(product.discount_price).toLocaleString("en-NG")));
+      }
+
+      if (product.description) {
+        card.append(makeElement("p", product.description, "muted"));
+      }
+
+      const actions = makeElement("div", undefined, "actions");
+      const edit = makeElement("button", "Edit", "secondary");
+      edit.type = "button";
+      edit.addEventListener("click", () => editProduct(product));
+
+      const remove = makeElement("button", "Delete", "danger");
+      remove.type = "button";
+      remove.addEventListener("click", () => deleteProduct(product));
+
+      actions.append(edit, remove);
+      card.append(actions);
+      productsBox.append(card);
+    }
+  }
+
+  async function loadProducts() {
+    $("productCount").textContent = "Loading products...";
+    try {
+      const data = await api("/api/products");
+      products = Array.isArray(data.products) ? data.products : [];
+      renderProducts();
+    } catch (error) {
+      $("productCount").textContent = "Could not load products.";
+      say("Product loading failed: " + error.message);
+    }
+  }
+
+  function editProduct(product) {
+    $("productId").value = product.id;
+    $("name").value = product.name || "";
+    $("description").value = product.description || "";
+    $("price").value = product.price;
+    $("discount").value = product.discount_price ?? "";
+
+    const photos = Array.isArray(product.photos) ? product.photos : [];
+    $("photo").value = photos[0] || "";
+
+    const options = Array.isArray(product.options) ? product.options : [];
+    $("options").value = options.join(", ");
+
+    $("formTitle").textContent = "Edit product";
+    $("saveButton").textContent = "Update product";
+    $("cancelEdit").hidden = false;
+    $("productForm").scrollIntoView({behavior: "smooth", block: "start"});
+  }
+
+  async function deleteProduct(product) {
+    if (!confirm("Delete " + product.name + "? This cannot be undone.")) {
+      return;
+    }
+
+    try {
+      await api("/api/products", {
+        method: "DELETE",
+        body: JSON.stringify({id: Number(product.id)})
+      });
+      say("Product deleted.");
+      await loadProducts();
+    } catch (error) {
+      say("Delete failed: " + error.message);
+    }
+  }
+
+  $("refresh").addEventListener("click", loadProducts);
+  checkSession();
+})();
+</script>
 </body>
 </html>
