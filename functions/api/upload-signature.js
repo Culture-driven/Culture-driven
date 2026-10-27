@@ -1,3 +1,4 @@
+
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -9,29 +10,17 @@ function json(data, status = 200) {
   });
 }
 
-async function signCloudinaryParams(params, secret) {
+async function cloudinarySignature(params, secret) {
   const text = Object.keys(params)
-    .filter((key) => key !== "file" && key !== "api_key" && key !== "resource_type")
     .sort()
-    .map((key) => `${key}=${params[key]}`)
+    .map(key => `${key}=${params[key]}`)
     .join("&");
 
-  const key = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(secret),
-    { name: "HMAC", hash: "SHA-1" },
-    false,
-    ["sign"]
-  );
+  const input = new TextEncoder().encode(text + secret);
+  const digest = await crypto.subtle.digest("SHA-1", input);
 
-  const signature = await crypto.subtle.sign(
-    "HMAC",
-    key,
-    new TextEncoder().encode(text)
-  );
-
-  return [...new Uint8Array(signature)]
-    .map((byte) => byte.toString(16).padStart(2, "0"))
+  return [...new Uint8Array(digest)]
+    .map(byte => byte.toString(16).padStart(2, "0"))
     .join("");
 }
 
@@ -67,7 +56,7 @@ async function isAdmin(request, secret) {
   );
 
   const expected = [...new Uint8Array(result)]
-    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .map(byte => byte.toString(16).padStart(2, "0"))
     .join("");
 
   if (expected.length !== suppliedSignature.length) return false;
@@ -97,14 +86,13 @@ export async function onRequest({ request, env }) {
     return json({ error: "Cloudinary settings are missing." }, 503);
   }
 
-  const timestamp = Math.floor(Date.now() / 1000);
   const params = {
     folder: "culture-driven",
-    timestamp
+    timestamp: Math.floor(Date.now() / 1000)
   };
 
   try {
-    const signature = await signCloudinaryParams(
+    const signature = await cloudinarySignature(
       params,
       env.CLOUDINARY_API_SECRET
     );
@@ -112,7 +100,7 @@ export async function onRequest({ request, env }) {
     return json({
       cloudName: env.CLOUDINARY_CLOUD_NAME,
       apiKey: env.CLOUDINARY_API_KEY,
-      timestamp,
+      timestamp: params.timestamp,
       folder: params.folder,
       signature
     });
