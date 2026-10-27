@@ -4,251 +4,302 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#080808">
-<meta name="description" content="Culture Driven — contemporary fashion, defined by culture.">
-<title>Culture Driven | Fashion</title>
+<meta name="theme-color" content="#faf9f6">
+<meta name="description" content="Culture Driven — fashion shaped by culture.">
+<title>Culture Driven | Fashion & Clothing</title>
 <style>
-:root{--black:#080808;--white:#fff;--grey:#aaa;--line:#292929}
+:root{--bg:#faf9f6;--white:#fff;--ink:#191919;--muted:#777168;--line:#e8e4dc;--cream:#f1ede5}
 *{box-sizing:border-box}
-body{margin:0;background:var(--black);color:var(--white);font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-a{color:inherit;text-decoration:none}
-header{padding:20px 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:#080808f5;z-index:5}
-.logo{font-size:21px;font-weight:900;letter-spacing:3px}
-.logo span{display:block;font-size:9px;letter-spacing:5px;margin-top:5px}
-nav{display:flex;gap:15px;align-items:center}
-nav button,.plain{background:none;color:white;border:0}
-.hero{padding:65px 6% 55px;background:linear-gradient(90deg,#080808,#171717);border-bottom:1px solid var(--line)}
-.eyebrow{font-size:10px;letter-spacing:4px;color:#aaa;text-transform:uppercase}
-.hero h1{font-size:clamp(40px,9vw,84px);line-height:.98;letter-spacing:-3px;margin:22px 0;max-width:700px}
-.hero p{color:#bbb;line-height:1.8;max-width:440px}
-.btn{background:white;color:black;border:1px solid white;padding:13px 18px;font-size:11px;font-weight:bold;letter-spacing:1px;text-transform:uppercase}
-.btn.dark{background:black;color:white;border-color:#555}
-.btn.small{padding:9px 12px}
+header{height:76px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.logo{font-weight:900;font-size:19px;letter-spacing:2px}
+.logo small{display:block;font-size:9px;letter-spacing:4px;margin-top:5px}
+nav{display:flex;gap:16px;align-items:center}
+nav button{border:0;background:none;color:var(--ink);font-size:11px;font-weight:bold}
+.hero{padding:65px 6%;background:linear-gradient(115deg,#fff 15%,#f1ede5);border-bottom:1px solid var(--line)}
+.eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.hero h1{font-size:clamp(43px,10vw,86px);letter-spacing:-3px;line-height:.98;margin:22px 0}
+.hero p{max-width:420px;color:#625e57;font-size:14px;line-height:1.9}
+.btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:13px 17px;font-size:10px;font-weight:bold;letter-spacing:1px}
+.btn.light{background:#fff;color:var(--ink)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
 section{padding:38px 5%}
-.section-heading{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:25px}
-h2{font-size:25px;letter-spacing:1px;margin:0}
-.muted{color:#999;font-size:12px;line-height:1.6}
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
-.field{width:100%;padding:12px;background:#111;color:white;border:1px solid #393939;border-radius:0;min-width:0}
+.heading{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-bottom:22px}
+h2{font-size:25px;margin:9px 0 0;letter-spacing:1px}
+.muted{color:var(--muted);font-size:12px;line-height:1.7}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+.field{width:100%;min-width:0;padding:12px;border:1px solid #ded9d0;background:#fff;color:var(--ink);border-radius:0}
 .filters select{grid-column:1/-1}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:25px 12px}
 .product{min-width:0}
-.photo-wrap{position:relative;background:#171717;aspect-ratio:3/4;overflow:hidden}
-.product-photo{width:100%;height:100%;object-fit:cover;display:block}
-.photo-arrow{position:absolute;top:45%;background:#000b;color:white;border:0;padding:10px}
-.photo-arrow.prev{left:5px}.photo-arrow.next{right:5px}
-.photo-count{position:absolute;bottom:8px;right:8px;background:#000b;padding:5px 8px;font-size:10px}
-.product h3{font-size:13px;margin:12px 0 7px;letter-spacing:.5px}
-.price{font-weight:bold;font-size:14px}
-.description{font-size:11px;color:#aaa;line-height:1.6;margin:8px 0}
-.product-actions{display:flex;gap:7px;margin-top:12px}
-.product-actions button{flex:1}
-footer{padding:35px 5%;border-top:1px solid var(--line);color:#aaa;font-size:11px;line-height:1.8}
-.overlay{position:fixed;inset:0;background:#000b;z-index:20;display:none;justify-content:flex-end}
+.photo{position:relative;aspect-ratio:3/4;background:var(--cream);overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.no-photo{height:100%;display:flex;align-items:center;justify-content:center;text-align:center;color:#8b8378;padding:12px;font-size:11px;letter-spacing:2px}
+.product h3{font-size:13px;line-height:1.5;margin:12px 0 6px}
+.price{font-size:14px;font-weight:bold}
+.old{font-size:11px;color:var(--muted);text-decoration:line-through;margin-left:6px;font-weight:normal}
+.sale{display:inline-block;margin-top:8px;border:1px solid #aaa093;padding:4px 6px;font-size:9px;letter-spacing:1px}
+.description{font-size:11px;color:var(--muted);line-height:1.6}
+.actions{margin-top:12px;display:flex;gap:7px}
+.actions button{flex:1;padding:11px 5px;font-size:9px}
+footer{border-top:1px solid var(--line);padding:32px 5%;font-size:11px;color:var(--muted);line-height:1.8}
+.overlay{position:fixed;inset:0;background:#0007;z-index:20;display:none;justify-content:flex-end}
 .overlay.open{display:flex}
-.panel{width:min(100%,480px);height:100%;overflow:auto;background:#0c0c0c;padding:22px}
-.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
-.panel-head h2{font-size:21px}
-.close{background:none;color:white;border:1px solid #444;padding:8px 12px}
-.cart-item{display:grid;grid-template-columns:68px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid #292929}
-.cart-item img{width:68px;height:85px;object-fit:cover}
+.panel{width:min(100%,460px);height:100%;overflow:auto;background:#fff;padding:22px}
+.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.panel-head h2{margin:0}
+.close{background:white;border:1px solid var(--line);padding:9px}
+.cart-item{display:grid;grid-template-columns:70px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.cart-item img{width:70px;height:85px;object-fit:cover;background:var(--cream)}
 .cart-item h3{font-size:12px;margin:3px 0 8px}
-.qty{display:flex;align-items:center;gap:12px;margin-top:10px}
-.qty button{background:#222;color:white;border:1px solid #555;padding:5px 10px}
-.total{display:flex;justify-content:space-between;font-size:18px;margin:25px 0}
-.label{display:block;font-size:11px;color:#bbb;margin:14px 0 7px}
-.form-grid{display:grid;gap:12px}
-textarea.field{min-height:75px}
-.notice{font-size:11px;line-height:1.7;color:#aaa;margin:14px 0}
-.empty{padding:35px 0;text-align:center;color:#aaa}
-.admin-product{border:1px solid #333;padding:12px;margin:12px 0}
-.admin-product img{width:48px;height:55px;object-fit:cover}
-.hidden{display:none!important}
-@media(min-width:700px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.filters{grid-template-columns:1fr 1fr 1fr}.filters select{grid-column:auto}.hero{padding-top:100px;padding-bottom:90px}}
+.qty{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:9px}
+.qty button{border:1px solid var(--line);background:var(--cream);padding:5px 10px}
+.total{display:flex;justify-content:space-between;font-size:18px;margin:24px 0}
+.label{display:block;font-size:11px;margin:14px 0 7px}
+.empty{text-align:center;padding:30px 10px;color:var(--muted);font-size:13px;line-height:1.8}
+.notice{font-size:11px;line-height:1.7;color:var(--muted)}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.filters{grid-template-columns:1fr 1fr 1fr}.filters select{grid-column:auto}.hero{padding-top:95px;padding-bottom:90px}}
 </style>
 </head>
 <body>
+
 <header>
-  <a class="logo" href="#">CULTURE DRIVEN<span>STYLE IS AN IDENTITY</span></a>
-  <nav>
-    <button onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">SHOP</button>
-    <button onclick="openCart()">BAG (<span id="cartCount">0</span>)</button>
-  </nav>
+<a class="logo" href="#">CULTURE DRIVEN<small>STYLE IS AN IDENTITY</small></a>
+<nav>
+<button onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">SHOP</button>
+<button onclick="openCart()">CART (<span id="cartCount">0</span>)</button>
+</nav>
 </header>
 
 <div class="hero">
-  <div class="eyebrow">A different kind of statement</div>
-  <h1>WEAR YOUR<br>IDENTITY.</h1>
-  <p>Fashion shaped by culture. Discover pieces that express your style, your story and your individuality.</p>
-  <button class="btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Explore Collection →</button>
+<div class="eyebrow">A different kind of statement</div>
+<h1>WEAR YOUR<br>IDENTITY.</h1>
+<p>Fashion shaped by culture. Discover pieces that express your style, your story and your individuality.</p>
+<button class="btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">EXPLORE COLLECTION →</button>
 </div>
 
 <section id="shop">
-  <div class="section-heading">
-    <div><div class="eyebrow">Curated for you</div><h2 style="margin-top:9px">THE COLLECTION</h2></div>
-    <button class="plain" onclick="openCart()">YOUR BAG ↗</button>
-  </div>
-  <div class="filters">
-    <input class="field" id="minPrice" type="number" min="0" placeholder="Minimum price (₦)" oninput="renderProducts()">
-    <input class="field" id="maxPrice" type="number" min="0" placeholder="Maximum price (₦)" oninput="renderProducts()">
-    <select class="field" id="sort" onchange="renderProducts()">
-      <option value="featured">Sort: Featured</option>
-      <option value="low">Price: Low to high</option>
-      <option value="high">Price: High to low</option>
-      <option value="name">Name: A to Z</option>
-    </select>
-  </div>
-  <div class="muted" id="resultCount"></div>
-  <div class="grid" id="products" style="margin-top:15px"></div>
+<div class="heading">
+<div><div class="eyebrow">Curated for you</div><h2>THE COLLECTION</h2></div>
+<button class="btn light" onclick="openCart()">VIEW CART</button>
+</div>
+<div class="filters">
+<input class="field" id="minPrice" type="number" min="0" placeholder="Minimum price (₦)" oninput="renderProducts()">
+<input class="field" id="maxPrice" type="number" min="0" placeholder="Maximum price (₦)" oninput="renderProducts()">
+<select class="field" id="sort" onchange="renderProducts()">
+<option value="featured">Sort: Featured</option>
+<option value="low">Price: Low to high</option>
+<option value="high">Price: High to low</option>
+<option value="name">Name: A to Z</option>
+</select>
+</div>
+<div class="muted" id="resultCount">Loading products…</div>
+<div class="grid" id="products" style="margin-top:16px"></div>
 </section>
 
-<section style="border-top:1px solid #292929;text-align:center">
-  <div class="eyebrow">Culture Driven</div>
-  <h2 style="margin:15px 0">YOUR STYLE. YOUR STORY.</h2>
-  <p class="muted">Questions about a product? Contact us directly on WhatsApp.</p>
-  <button class="btn dark" onclick="contactWhatsApp()">CONTACT US ON WHATSAPP</button>
+<section style="text-align:center;background:#f1ede5">
+<div class="eyebrow">Culture Driven</div>
+<h2>YOUR STYLE. YOUR STORY.</h2>
+<p class="muted">Need help with an order? Contact us on WhatsApp.</p>
+<button class="btn" onclick="contactWhatsApp()">CONTACT US ON WHATSAPP</button>
 </section>
 
 <footer>
-  <div class="logo">CULTURE DRIVEN</div>
-  <p>Fashion with identity. Style with purpose.</p>
-  <p>© <span id="year"></span> Culture Driven. All rights reserved.</p>
-  <button class="plain" onclick="openAdmin()">PRODUCT MANAGEMENT</button>
-  <p>Product management in this preview is browser-based and is not a secure online admin system.</p>
+<div class="logo">CULTURE DRIVEN</div>
+<p>Fashion with identity. Style with purpose.</p>
+<p>© <span id="year"></span> Culture Driven. All rights reserved.</p>
+<a href="/admin/">Administrator sign in</a>
 </footer>
 
-<!-- Shopping cart -->
 <div class="overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
- <div class="panel">
-  <div class="panel-head"><h2>YOUR BAG</h2><button class="close" onclick="closeCart()">CLOSE ✕</button></div>
-  <div id="cartItems"></div>
-  <div class="total"><span>Total</span><strong id="cartTotal">₦0</strong></div>
-  <div class="form-grid">
-   <label class="label">Your name<input class="field" id="customerName" placeholder="Enter your name"></label>
-   <label class="label">Delivery address (optional)<textarea class="field" id="customerAddress" placeholder="Where should we deliver?"></textarea></label>
-   <button class="btn" onclick="checkout()">ORDER ON WHATSAPP →</button>
-  </div>
-  <p class="notice">Your order opens in WhatsApp for confirmation. Payment and delivery arrangements are confirmed with the seller.</p>
- </div>
+<div class="panel">
+<div class="panel-head"><h2>YOUR CART</h2><button class="close" onclick="closeCart()">CLOSE ✕</button></div>
+<div id="cartItems"></div>
+<div class="total"><span>Total</span><strong id="cartTotal">₦0</strong></div>
+<label class="label">Your name<input class="field" id="customerName" placeholder="Enter your name"></label>
+<label class="label">Delivery address (optional)<textarea class="field" id="customerAddress" rows="3" placeholder="Enter delivery address"></textarea></label>
+<button class="btn" style="width:100%" onclick="checkout()">CHECKOUT ON WHATSAPP →</button>
+<p class="notice">Your order will open in WhatsApp for confirmation. Payment and delivery arrangements are confirmed with the seller.</p>
 </div>
-
-<!-- Basic product editor preview, NOT a secured admin dashboard -->
-<div class="overlay" id="adminOverlay" onclick="if(event.target===this)closeAdmin()">
- <div class="panel">
-  <div class="panel-head"><h2>PRODUCT EDITOR</h2><button class="close" onclick="closeAdmin()">CLOSE ✕</button></div>
-  <p class="notice">Preview only: products saved here are stored in this browser. They will not automatically appear on other customers' devices. Do not enter private information here.</p>
-  <div class="form-grid">
-   <label class="label">Product name<input class="field" id="pName" placeholder="e.g. Signature Shirt"></label>
-   <label class="label">Price in naira<input class="field" id="pPrice" type="number" min="0" placeholder="e.g. 25000"></label>
-   <label class="label">Description<textarea class="field" id="pDesc" placeholder="Describe the product"></textarea></label>
-   <label class="label">Sizes / colours<input class="field" id="pOptions" placeholder="e.g. M, L, XL / Black, White"></label>
-   <label class="label">Product photos — select multiple<input class="field" id="pPhotos" type="file" accept="image/*" multiple></label>
-   <button class="btn" onclick="addProduct()">SAVE PRODUCT ON THIS DEVICE</button>
-  </div>
-  <h3 style="margin-top:28px">Saved products</h3>
-  <div id="adminProducts"></div>
- </div>
 </div>
 
 <script>
 const WHATSAPP_NUMBER = "2347070461986";
-const STORE_KEY = "cultureDrivenProductsV1";
-const CART_KEY = "cultureDrivenCartV1";
+const CART_KEY = "cultureDrivenCartV3";
+let products = [];
+let cart = [];
 
-const starterProducts = [
- {id:"sample1",name:"Essential Black Shirt",price:18000,description:"A clean everyday statement piece.",options:"S, M, L, XL",photos:["https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"],sample:true},
- {id:"sample2",name:"Classic White Shirt",price:20000,description:"Timeless style with a refined finish.",options:"S, M, L, XL",photos:["https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=80"],sample:true},
- {id:"sample3",name:"Urban Essentials",price:25000,description:"Modern streetwear for everyday expression.",options:"M, L, XL",photos:["https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80"],sample:true}
-];
+try {
+  cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+  if (!Array.isArray(cart)) cart = [];
+} catch(e) { cart = []; }
 
-function load(key,fallback){
- try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback}catch(e){return fallback}
+const money = n => "₦" + Number(n || 0).toLocaleString("en-NG");
+const safe = s => String(s ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+
+function priceOf(p) {
+  const price = Number(p.price) || 0;
+  const discount = Number(p.discount_price);
+  return discount > 0 && discount < price ? discount : price;
 }
-let products=load(STORE_KEY,starterProducts);
-let cart=load(CART_KEY,[]);
-let photoIndexes={};
-const money=n=>"₦"+Number(n||0).toLocaleString("en-NG");
-const escapeHtml=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function saveProducts(){try{localStorage.setItem(STORE_KEY,JSON.stringify(products));return true}catch(e){alert("Browser storage is full. Try fewer or smaller photos.");return false}}
-function saveCart(){localStorage.setItem(CART_KEY,JSON.stringify(cart));updateCartCount()}
-function updateCartCount(){document.getElementById("cartCount").textContent=cart.reduce((s,i)=>s+i.qty,0)}
-function renderProducts(){
- const min=document.getElementById("minPrice").value;
- const max=document.getElementById("maxPrice").value;
- let list=products.filter(p=>(min===""||p.price>=Number(min))&&(max===""||p.price<=Number(max)));
- const sort=document.getElementById("sort").value;
- if(sort==="low")list.sort((a,b)=>a.price-b.price);
- if(sort==="high")list.sort((a,b)=>b.price-a.price);
- if(sort==="name")list.sort((a,b)=>a.name.localeCompare(b.name));
- document.getElementById("resultCount").textContent=list.length+" product(s)";
- const root=document.getElementById("products");
- if(!list.length){root.innerHTML='<div class="empty" style="grid-column:1/-1">No products in this price range.</div>';return}
- root.innerHTML=list.map(p=>{
-  const photos=p.photos&&p.photos.length?p.photos:[""];
-  const idx=(photoIndexes[p.id]||0)%photos.length;
-  return `<article class="product">
-   <div class="photo-wrap">
-    <img class="product-photo" src="${escapeHtml(photos[idx])}" alt="${escapeHtml(p.name)}" onerror="this.style.display='none'">
-    ${photos.length>1?`<button class="photo-arrow prev" onclick="changePhoto('${p.id}',-1)">‹</button><button class="photo-arrow next" onclick="changePhoto('${p.id}',1)">›</button><span class="photo-count">${idx+1}/${photos.length}</span>`:""}
-   </div>
-   <h3>${escapeHtml(p.name)}</h3><div class="price">${money(p.price)}</div>
-   <p class="description">${escapeHtml(p.description||"")}</p>
-   ${p.options?`<p class="muted">${escapeHtml(p.options)}</p>`:""}
-   <div class="product-actions"><button class="btn small" onclick="addToCart('${p.id}')">ADD TO BAG</button></div>
-  </article>`
- }).join("");
+
+async function loadProducts() {
+  try {
+    const response = await fetch("/api/products", {cache:"no-store"});
+    if (!response.ok) throw Error("Products API is not ready.");
+    const data = await response.json();
+    products = Array.isArray(data) ? data : (data.products || []);
+    renderProducts();
+    renderCart();
+  } catch(e) {
+    products = [];
+    document.getElementById("resultCount").textContent = "Your product collection will appear here when the store is connected.";
+    document.getElementById("products").innerHTML =
+      '<div class="empty" style="grid-column:1/-1">Products are not available yet. The product database and API need to be connected in Cloudflare.</div>';
+    renderCart();
+  }
 }
-function changePhoto(id,dir){const p=products.find(p=>p.id===id);if(!p)return;photoIndexes[id]=((photoIndexes[id]||0)+dir+p.photos.length)%p.photos.length;renderProducts()}
-function addToCart(id){const p=products.find(p=>p.id===id);if(!p)return;const item=cart.find(i=>i.id===id);if(item)item.qty++;else cart.push({id,qty:1});saveCart();alert(p.name+" added to your bag.");}
-function openCart(){renderCart();document.getElementById("cartOverlay").classList.add("open")}
-function closeCart(){document.getElementById("cartOverlay").classList.remove("open")}
-function renderCart(){
- const root=document.getElementById("cartItems");
- if(!cart.length){root.innerHTML='<div class="empty">Your bag is empty.</div>';document.getElementById("cartTotal").textContent=money(0);return}
- root.innerHTML=cart.map(i=>{const p=products.find(p=>p.id===i.id);if(!p)return "";return `<div class="cart-item"><img src="${escapeHtml((p.photos||[])[0]||"")}" alt=""><div><h3>${escapeHtml(p.name)}</h3><strong>${money(p.price)}</strong><div class="qty"><button onclick="changeQty('${i.id}',-1)">−</button><span>${i.qty}</span><button onclick="changeQty('${i.id}',1)">+</button><button class="plain" onclick="removeItem('${i.id}')">Remove</button></div></div></div>`}).join("");
- document.getElementById("cartTotal").textContent=money(cart.reduce((s,i)=>{const p=products.find(p=>p.id===i.id);return s+(p?p.price*i.qty:0)},0))
+
+function renderProducts() {
+  const min = document.getElementById("minPrice").value;
+  const max = document.getElementById("maxPrice").value;
+  const sort = document.getElementById("sort").value;
+  let list = products.filter(p =>
+    (min === "" || priceOf(p) >= Number(min)) &&
+    (max === "" || priceOf(p) <= Number(max))
+  );
+  if(sort==="low") list.sort((a,b)=>priceOf(a)-priceOf(b));
+  if(sort==="high") list.sort((a,b)=>priceOf(b)-priceOf(a));
+  if(sort==="name") list.sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+
+  document.getElementById("resultCount").textContent = list.length + " product(s)";
+  const root = document.getElementById("products");
+  if(!list.length) {
+    root.innerHTML = '<div class="empty" style="grid-column:1/-1">No products to display yet. Add products through the connected admin dashboard.</div>';
+    return;
+  }
+
+  root.innerHTML = list.map(p => {
+    const discounted = priceOf(p) < Number(p.price);
+    const photos = Array.isArray(p.photos) ? p.photos : [];
+    const photo = photos[0] || "";
+    return `<article class="product">
+      <div class="photo">${photo ? `<img loading="lazy" src="${safe(photo)}" alt="${safe(p.name)}">` : '<div class="no-photo">CULTURE DRIVEN</div>'}</div>
+      ${discounted ? '<span class="sale">SPECIAL PRICE</span>' : ''}
+      <h3>${safe(p.name)}</h3>
+      <div class="price">${money(priceOf(p))}${discounted ? `<span class="old">${money(p.price)}</span>` : ''}</div>
+      <p class="description">${safe(p.description || '')}</p>
+      ${p.options ? `<p class="muted">${safe(p.options)}</p>` : ''}
+      <div class="actions"><button class="btn" onclick="addToCart('${safe(p.id)}')">ADD TO CART</button></div>
+    </article>`;
+  }).join("");
 }
-function changeQty(id,delta){const i=cart.find(i=>i.id===id);if(!i)return;i.qty+=delta;if(i.qty<=0)cart=cart.filter(x=>x.id!==id);saveCart();renderCart()}
-function removeItem(id){cart=cart.filter(i=>i.id!==id);saveCart();renderCart()}
-function checkout(){
- if(!cart.length){alert("Your bag is empty.");return}
- const name=document.getElementById("customerName").value.trim();
- const address=document.getElementById("customerAddress").value.trim();
- let lines=["Hello Culture Driven! I would like to place an order.",name?"Customer: "+name:""];
- cart.forEach(i=>{const p=products.find(p=>p.id===i.id);if(p)lines.push(`${p.name} x ${i.qty} — ${money(p.price*i.qty)}`)});
- lines.push("Total: "+document.getElementById("cartTotal").textContent);
- if(address)lines.push("Delivery address: "+address);
- lines.push("Please confirm availability and delivery details.");
- window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(lines.filter(Boolean).join("\n")),"_blank");
+
+function saveCart() {
+  try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e) {}
+  document.getElementById("cartCount").textContent =
+    cart.reduce((sum,item)=>sum+item.qty,0);
 }
-function contactWhatsApp(){window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent("Hello Culture Driven, I would like to make an enquiry."),"_blank")}
-function openAdmin(){document.getElementById("adminOverlay").classList.add("open");renderAdminProducts()}
-function closeAdmin(){document.getElementById("adminOverlay").classList.remove("open")}
-function renderAdminProducts(){
- document.getElementById("adminProducts").innerHTML=products.map(p=>`<div class="admin-product"><strong>${escapeHtml(p.name)}</strong> — ${money(p.price)}<br><button class="btn dark small" style="margin-top:9px" onclick="deleteProduct('${p.id}')">DELETE</button></div>`).join("")||"No products yet."
+
+function addToCart(id) {
+  const p = products.find(x=>String(x.id)===String(id));
+  if(!p) return;
+  const item = cart.find(x=>String(x.id)===String(id));
+  if(item) item.qty++;
+  else cart.push({id:p.id,qty:1});
+  saveCart();
+  renderCart();
+  openCart();
 }
-async function addProduct(){
- const name=document.getElementById("pName").value.trim();
- const price=Number(document.getElementById("pPrice").value);
- const description=document.getElementById("pDesc").value.trim();
- const options=document.getElementById("pOptions").value.trim();
- const files=[...document.getElementById("pPhotos").files];
- if(!name||!price||price<0){alert("Enter a product name and valid price.");return}
- if(!files.length){alert("Please select at least one product photo.");return}
- if(files.some(f=>f.size>700*1024)){alert("For this preview, each photo must be smaller than 700 KB. The finished website will use proper image storage.");return}
- const photos=await Promise.all(files.map(file=>new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)})));
- const item={id:"p"+Date.now(),name,price,description,options,photos};
- products=products.filter(p=>!p.sample);products.push(item);
- if(!saveProducts())return;
- renderProducts();renderAdminProducts();
- ["pName","pPrice","pDesc","pOptions","pPhotos"].forEach(id=>document.getElementById(id).value="");
- alert("Product saved in this browser only. It is not yet published for all visitors.")
+
+function openCart() {
+  renderCart();
+  document.getElementById("cartOverlay").classList.add("open");
 }
-function deleteProduct(id){if(!confirm("Delete this product from this browser?"))return;products=products.filter(p=>p.id!==id);cart=cart.filter(i=>i.id!==id);saveProducts();saveCart();renderProducts();renderCart();renderAdminProducts()}
-document.getElementById("year").textContent=new Date().getFullYear();
-renderProducts();updateCartCount();
+function closeCart() {
+  document.getElementById("cartOverlay").classList.remove("open");
+}
+
+function renderCart() {
+  cart = cart.filter(item=>products.some(p=>String(p.id)===String(item.id)));
+  const root = document.getElementById("cartItems");
+  if(!cart.length) {
+    root.innerHTML = '<div class="empty">Your cart is empty.<br>Explore the collection and add your favourite items.</div>';
+    document.getElementById("cartTotal").textContent = money(0);
+    saveCart();
+    return;
+  }
+  let total = 0;
+  root.innerHTML = cart.map(item=>{
+    const p = products.find(x=>String(x.id)===String(item.id));
+    const line = priceOf(p)*item.qty;
+    total += line;
+    const photo = Array.isArray(p.photos) ? p.photos[0] : "";
+    return `<div class="cart-item">
+      ${photo ? `<img src="${safe(photo)}" alt="">` : '<div style="background:#f1ede5;width:70px;height:85px"></div>'}
+      <div><h3>${safe(p.name)}</h3><strong>${money(priceOf(p))}</strong>
+      <div class="qty">
+      <button onclick="changeQty('${safe(p.id)}',-1)">−</button><span>${item.qty}</span><button onclick="changeQty('${safe(p.id)}',1)">+</button>
+      <button onclick="removeItem('${safe(p.id)}')">Remove</button>
+      </div></div></div>`;
+  }).join("");
+  document.getElementById("cartTotal").textContent = money(total);
+  saveCart();
+}
+
+function changeQty(id,amount) {
+  const item = cart.find(x=>String(x.id)===String(id));
+  if(!item) return;
+  item.qty += amount;
+  if(item.qty<=0) cart = cart.filter(x=>String(x.id)!==String(id));
+  saveCart();
+  renderCart();
+}
+function removeItem(id) {
+  cart = cart.filter(x=>String(x.id)!==String(id));
+  saveCart();
+  renderCart();
+}
+
+function checkout() {
+  if(!cart.length) {
+    alert("Your cart is empty.");
+    return;
+  }
+  const name = document.getElementById("customerName").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+  if(!name) {
+    alert("Please enter your name.");
+    document.getElementById("customerName").focus();
+    return;
+  }
+  let total = 0;
+  let message = "Hello Culture Driven! I would like to place an order.\n\nName: "+name+"\n";
+  if(address) message += "Delivery address: "+address+"\n";
+  message += "\nORDER DETAILS\n";
+  cart.forEach(item=>{
+    const p = products.find(x=>String(x.id)===String(item.id));
+    if(!p) return;
+    const subtotal = priceOf(p)*item.qty;
+    total += subtotal;
+    message += "\n"+p.name+" × "+item.qty+" — "+money(subtotal);
+  });
+  message += "\n\nTOTAL: "+money(total)+"\nPlease confirm availability, delivery cost and payment details.";
+  window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");
+}
+
+function contactWhatsApp() {
+  const message = "Hello Culture Driven! I would like to enquire about your collection.";
+  window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+saveCart();
+loadProducts();
 </script>
 </body>
 </html>
