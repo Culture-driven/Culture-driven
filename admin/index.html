@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Culture Driven | Admin</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: grid; place-items: center;
+      padding: 20px; background: #f4f4f4; color: #111;
+      font-family: Arial, sans-serif;
+    }
+    main {
+      background: white; width: 100%; max-width: 390px;
+      padding: 30px 24px; border: 1px solid #ddd;
+    }
+    h1 { font-size: 25px; letter-spacing: 2px; }
+    p { color: #555; line-height: 1.5; }
+    label { display: block; margin: 20px 0 8px; }
+    input, button {
+      width: 100%; padding: 14px; font-size: 16px;
+    }
+    input { border: 1px solid #999; }
+    button {
+      margin-top: 14px; background: #111; color: white;
+      border: 0; cursor: pointer;
+    }
+    #message { overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>CULTURE DRIVEN</h1>
+    <p>Administrator sign in</p>
+    <form id="loginForm">
+      <label for="password">Admin password</label>
+      <input id="password" type="password" autocomplete="current-password"
+        required maxlength="1024" placeholder="Enter your password">
+      <button type="submit">Sign in</button>
+    </form>
+    <p id="message" role="status"></p>
+    <section id="dashboard" hidden>
+      <h2>Admin access confirmed</h2>
+      <p>Your login works. Product management is the next step.</p>
+      <button id="logout" type="button">Log out</button>
+    </section>
+  </main>
+  <script>
+    const form = document.getElementById("loginForm");
+    const message = document.getElementById("message");
+    const dashboard = document.getElementById("dashboard");
+
+    async function checkSession() {
+      try {
+        const r = await fetch("/api/admin", { credentials: "same-origin" });
+        const d = await r.json();
+        if (r.ok && d.authenticated) {
+          form.hidden = true;
+          dashboard.hidden = false;
+        }
+      } catch {
+        message.textContent = "Could not connect. Please try again.";
+      }
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      message.textContent = "Signing in...";
+      try {
+        const r = await fetch("/api/admin", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "login",
+            password: document.getElementById("password").value
+          })
+        });
+        const d = await r.json();
+        if (!r.ok) throw new Error(d.error || "Sign-in failed.");
+        form.reset();
+        form.hidden = true;
+        dashboard.hidden = false;
+        message.textContent = "";
+      } catch (e) {
+        message.textContent = e.message || "Unable to sign in.";
+      }
+    });
+
+    document.getElementById("logout").addEventListener("click", async () => {
+      try {
+        await fetch("/api/admin", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "logout" })
+        });
+        dashboard.hidden = true;
+        form.hidden = false;
+        message.textContent = "You have logged out.";
+      } catch {
+        message.textContent = "Could not log out. Please try again.";
+      }
+    });
+
+    checkSession();
+  </script>
+</body>
+</html>
