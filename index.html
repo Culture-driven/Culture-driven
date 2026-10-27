@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#faf9f6">
 <meta name="description" content="Culture Driven — fashion shaped by culture.">
-<title>Culture Driven | Fashion & Clothing</title>
+<title>Culture Driven | Fashion &amp; Clothing</title>
 <style>
 :root{--bg:#faf9f6;--white:#fff;--ink:#191919;--muted:#777168;--line:#e8e4dc;--cream:#f1ede5}
 *{box-sizing:border-box}
@@ -60,7 +60,12 @@ footer{border-top:1px solid var(--line);padding:32px 5%;font-size:11px;color:var
 .label{display:block;font-size:11px;margin:14px 0 7px}
 .empty{text-align:center;padding:30px 10px;color:var(--muted);font-size:13px;line-height:1.8}
 .notice{font-size:11px;line-height:1.7;color:var(--muted)}
-@media(min-width:700px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.filters{grid-template-columns:1fr 1fr 1fr}.filters select{grid-column:auto}.hero{padding-top:95px;padding-bottom:90px}}
+@media(min-width:700px){
+.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.filters{grid-template-columns:1fr 1fr 1fr}
+.filters select{grid-column:auto}
+.hero{padding-top:95px;padding-bottom:90px}
+}
 </style>
 </head>
 <body>
@@ -82,9 +87,13 @@ footer{border-top:1px solid var(--line);padding:32px 5%;font-size:11px;color:var
 
 <section id="shop">
 <div class="heading">
-<div><div class="eyebrow">Curated for you</div><h2>THE COLLECTION</h2></div>
+<div>
+<div class="eyebrow">Curated for you</div>
+<h2>THE COLLECTION</h2>
+</div>
 <button class="btn light" onclick="openCart()">VIEW CART</button>
 </div>
+
 <div class="filters">
 <input class="field" id="minPrice" type="number" min="0" placeholder="Minimum price (₦)" oninput="renderProducts()">
 <input class="field" id="maxPrice" type="number" min="0" placeholder="Maximum price (₦)" oninput="renderProducts()">
@@ -95,6 +104,7 @@ footer{border-top:1px solid var(--line);padding:32px 5%;font-size:11px;color:var
 <option value="name">Name: A to Z</option>
 </select>
 </div>
+
 <div class="muted" id="resultCount">Loading products…</div>
 <div class="grid" id="products" style="margin-top:16px"></div>
 </section>
@@ -110,16 +120,26 @@ footer{border-top:1px solid var(--line);padding:32px 5%;font-size:11px;color:var
 <div class="logo">CULTURE DRIVEN</div>
 <p>Fashion with identity. Style with purpose.</p>
 <p>© <span id="year"></span> Culture Driven. All rights reserved.</p>
-<a href="/admin/">Administrator sign in</a>
 </footer>
 
 <div class="overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
 <div class="panel">
-<div class="panel-head"><h2>YOUR CART</h2><button class="close" onclick="closeCart()">CLOSE ✕</button></div>
+<div class="panel-head">
+<h2>YOUR CART</h2>
+<button class="close" onclick="closeCart()">CLOSE ✕</button>
+</div>
+
 <div id="cartItems"></div>
 <div class="total"><span>Total</span><strong id="cartTotal">₦0</strong></div>
-<label class="label">Your name<input class="field" id="customerName" placeholder="Enter your name"></label>
-<label class="label">Delivery address (optional)<textarea class="field" id="customerAddress" rows="3" placeholder="Enter delivery address"></textarea></label>
+
+<label class="label">Your name
+<input class="field" id="customerName" placeholder="Enter your name">
+</label>
+
+<label class="label">Delivery address (optional)
+<textarea class="field" id="customerAddress" rows="3" placeholder="Enter delivery address"></textarea>
+</label>
+
 <button class="btn" style="width:100%" onclick="checkout()">CHECKOUT ON WHATSAPP →</button>
 <p class="notice">Your order will open in WhatsApp for confirmation. Payment and delivery arrangements are confirmed with the seller.</p>
 </div>
@@ -134,11 +154,18 @@ let cart = [];
 try {
   cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
   if (!Array.isArray(cart)) cart = [];
-} catch(e) { cart = []; }
+} catch(e) {
+  cart = [];
+}
 
 const money = n => "₦" + Number(n || 0).toLocaleString("en-NG");
+
 const safe = s => String(s ?? "").replace(/[&<>"']/g, c => ({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
 }[c]));
 
 function priceOf(p) {
@@ -151,15 +178,21 @@ async function loadProducts() {
   try {
     const response = await fetch("/api/products", {cache:"no-store"});
     if (!response.ok) throw Error("Products API is not ready.");
+
     const data = await response.json();
     products = Array.isArray(data) ? data : (data.products || []);
+
     renderProducts();
     renderCart();
   } catch(e) {
     products = [];
-    document.getElementById("resultCount").textContent = "Your product collection will appear here when the store is connected.";
+
+    document.getElementById("resultCount").textContent =
+      "Your product collection will appear here when the store is connected.";
+
     document.getElementById("products").innerHTML =
       '<div class="empty" style="grid-column:1/-1">Products are not available yet. The product database and API need to be connected in Cloudflare.</div>';
+
     renderCart();
   }
 }
@@ -168,17 +201,21 @@ function renderProducts() {
   const min = document.getElementById("minPrice").value;
   const max = document.getElementById("maxPrice").value;
   const sort = document.getElementById("sort").value;
+
   let list = products.filter(p =>
     (min === "" || priceOf(p) >= Number(min)) &&
     (max === "" || priceOf(p) <= Number(max))
   );
-  if(sort==="low") list.sort((a,b)=>priceOf(a)-priceOf(b));
-  if(sort==="high") list.sort((a,b)=>priceOf(b)-priceOf(a));
-  if(sort==="name") list.sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+
+  if (sort === "low") list.sort((a,b) => priceOf(a)-priceOf(b));
+  if (sort === "high") list.sort((a,b) => priceOf(b)-priceOf(a));
+  if (sort === "name") list.sort((a,b) => String(a.name).localeCompare(String(b.name)));
 
   document.getElementById("resultCount").textContent = list.length + " product(s)";
+
   const root = document.getElementById("products");
-  if(!list.length) {
+
+  if (!list.length) {
     root.innerHTML = '<div class="empty" style="grid-column:1/-1">No products to display yet. Add products through the connected admin dashboard.</div>';
     return;
   }
@@ -187,6 +224,7 @@ function renderProducts() {
     const discounted = priceOf(p) < Number(p.price);
     const photos = Array.isArray(p.photos) ? p.photos : [];
     const photo = photos[0] || "";
+
     return `<article class="product">
       <div class="photo">${photo ? `<img loading="lazy" src="${safe(photo)}" alt="${safe(p.name)}">` : '<div class="no-photo">CULTURE DRIVEN</div>'}</div>
       ${discounted ? '<span class="sale">SPECIAL PRICE</span>' : ''}
@@ -200,17 +238,23 @@ function renderProducts() {
 }
 
 function saveCart() {
-  try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e) {}
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  } catch(e) {}
+
   document.getElementById("cartCount").textContent =
-    cart.reduce((sum,item)=>sum+item.qty,0);
+    cart.reduce((sum,item) => sum + item.qty, 0);
 }
 
 function addToCart(id) {
-  const p = products.find(x=>String(x.id)===String(id));
-  if(!p) return;
-  const item = cart.find(x=>String(x.id)===String(id));
-  if(item) item.qty++;
+  const p = products.find(x => String(x.id) === String(id));
+  if (!p) return;
+
+  const item = cart.find(x => String(x.id) === String(id));
+
+  if (item) item.qty++;
   else cart.push({id:p.id,qty:1});
+
   saveCart();
   renderCart();
   openCart();
@@ -220,84 +264,123 @@ function openCart() {
   renderCart();
   document.getElementById("cartOverlay").classList.add("open");
 }
+
 function closeCart() {
   document.getElementById("cartOverlay").classList.remove("open");
 }
 
 function renderCart() {
-  cart = cart.filter(item=>products.some(p=>String(p.id)===String(item.id)));
+  cart = cart.filter(item =>
+    products.some(p => String(p.id) === String(item.id))
+  );
+
   const root = document.getElementById("cartItems");
-  if(!cart.length) {
+
+  if (!cart.length) {
     root.innerHTML = '<div class="empty">Your cart is empty.<br>Explore the collection and add your favourite items.</div>';
     document.getElementById("cartTotal").textContent = money(0);
     saveCart();
     return;
   }
+
   let total = 0;
-  root.innerHTML = cart.map(item=>{
-    const p = products.find(x=>String(x.id)===String(item.id));
-    const line = priceOf(p)*item.qty;
+
+  root.innerHTML = cart.map(item => {
+    const p = products.find(x => String(x.id) === String(item.id));
+    const line = priceOf(p) * item.qty;
     total += line;
+
     const photo = Array.isArray(p.photos) ? p.photos[0] : "";
+
     return `<div class="cart-item">
       ${photo ? `<img src="${safe(photo)}" alt="">` : '<div style="background:#f1ede5;width:70px;height:85px"></div>'}
-      <div><h3>${safe(p.name)}</h3><strong>${money(priceOf(p))}</strong>
-      <div class="qty">
-      <button onclick="changeQty('${safe(p.id)}',-1)">−</button><span>${item.qty}</span><button onclick="changeQty('${safe(p.id)}',1)">+</button>
-      <button onclick="removeItem('${safe(p.id)}')">Remove</button>
-      </div></div></div>`;
+      <div>
+        <h3>${safe(p.name)}</h3>
+        <strong>${money(priceOf(p))}</strong>
+        <div class="qty">
+          <button onclick="changeQty('${safe(p.id)}',-1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty('${safe(p.id)}',1)">+</button>
+          <button onclick="removeItem('${safe(p.id)}')">Remove</button>
+        </div>
+      </div>
+    </div>`;
   }).join("");
+
   document.getElementById("cartTotal").textContent = money(total);
   saveCart();
 }
 
-function changeQty(id,amount) {
-  const item = cart.find(x=>String(x.id)===String(id));
-  if(!item) return;
+function changeQty(id, amount) {
+  const item = cart.find(x => String(x.id) === String(id));
+  if (!item) return;
+
   item.qty += amount;
-  if(item.qty<=0) cart = cart.filter(x=>String(x.id)!==String(id));
+
+  if (item.qty <= 0) {
+    cart = cart.filter(x => String(x.id) !== String(id));
+  }
+
   saveCart();
   renderCart();
 }
+
 function removeItem(id) {
-  cart = cart.filter(x=>String(x.id)!==String(id));
+  cart = cart.filter(x => String(x.id) !== String(id));
   saveCart();
   renderCart();
 }
 
 function checkout() {
-  if(!cart.length) {
+  if (!cart.length) {
     alert("Your cart is empty.");
     return;
   }
+
   const name = document.getElementById("customerName").value.trim();
   const address = document.getElementById("customerAddress").value.trim();
-  if(!name) {
+
+  if (!name) {
     alert("Please enter your name.");
     document.getElementById("customerName").focus();
     return;
   }
+
   let total = 0;
-  let message = "Hello Culture Driven! I would like to place an order.\n\nName: "+name+"\n";
-  if(address) message += "Delivery address: "+address+"\n";
+  let message = "Hello Culture Driven! I would like to place an order.\n\nName: " + name + "\n";
+
+  if (address) message += "Delivery address: " + address + "\n";
+
   message += "\nORDER DETAILS\n";
-  cart.forEach(item=>{
-    const p = products.find(x=>String(x.id)===String(item.id));
-    if(!p) return;
-    const subtotal = priceOf(p)*item.qty;
+
+  cart.forEach(item => {
+    const p = products.find(x => String(x.id) === String(item.id));
+    if (!p) return;
+
+    const subtotal = priceOf(p) * item.qty;
     total += subtotal;
-    message += "\n"+p.name+" × "+item.qty+" — "+money(subtotal);
+    message += "\n" + p.name + " × " + item.qty + " — " + money(subtotal);
   });
-  message += "\n\nTOTAL: "+money(total)+"\nPlease confirm availability, delivery cost and payment details.";
-  window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");
+
+  message += "\n\nTOTAL: " + money(total) + "\nPlease confirm availability, delivery cost and payment details.";
+
+  window.open(
+    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message),
+    "_blank"
+  );
 }
 
 function contactWhatsApp() {
   const message = "Hello Culture Driven! I would like to enquire about your collection.";
-  window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");
+
+  window.open(
+    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message),
+    "_blank"
+  );
 }
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
 saveCart();
 loadProducts();
 </script>
