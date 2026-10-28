@@ -22,7 +22,7 @@ body{
   margin:0;
   background:var(--bg);
   color:var(--ink);
-  font-family:Arial,Helvetica,sans-serif
+  font-family:Arial,Helvetica,sans-serif;
 }
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
@@ -37,7 +37,7 @@ header{
   border-bottom:1px solid var(--line);
   position:sticky;
   top:0;
-  z-index:5
+  z-index:5;
 }
 .brand{
   display:flex;
@@ -45,14 +45,14 @@ header{
   gap:9px;
   min-width:0;
   text-decoration:none;
-  color:#000
+  color:#000;
 }
 .brand img{
   display:block;
   width:76px;
   height:auto;
   max-height:45px;
-  object-fit:contain
+  object-fit:contain;
 }
 .brand-text{min-width:0}
 .logo{
@@ -62,7 +62,7 @@ header{
   font-size:clamp(12px,2.5vw,17px);
   letter-spacing:1.2px;
   white-space:nowrap;
-  text-decoration:none
+  text-decoration:none;
 }
 .logo small{
   display:block;
@@ -70,7 +70,7 @@ header{
   font-size:8px;
   letter-spacing:1.8px;
   margin-top:5px;
-  font-weight:bold
+  font-weight:bold;
 }
 nav{display:flex;gap:12px;align-items:center}
 nav button{
@@ -79,31 +79,31 @@ nav button{
   color:#000;
   font-size:10px;
   font-weight:bold;
-  white-space:nowrap
+  white-space:nowrap;
 }
 .hero{
   padding:65px 6%;
   background:linear-gradient(115deg,#fff 15%,#f1ede5);
-  border-bottom:1px solid var(--line)
+  border-bottom:1px solid var(--line);
 }
 .eyebrow{
   font-size:10px;
   letter-spacing:3px;
   text-transform:uppercase;
-  color:var(--muted)
+  color:var(--muted);
 }
 .hero h1{
   font-size:clamp(43px,10vw,86px);
   letter-spacing:-3px;
   line-height:.98;
   margin:22px 0;
-  color:#000
+  color:#000;
 }
 .hero p{
   max-width:420px;
   color:#625e57;
   font-size:14px;
-  line-height:1.9
+  line-height:1.9;
 }
 .btn{
   background:#000;
@@ -112,7 +112,7 @@ nav button{
   padding:13px 17px;
   font-size:10px;
   font-weight:bold;
-  letter-spacing:1px
+  letter-spacing:1px;
 }
 .btn.light{background:#fff;color:#000}
 .btn:disabled{opacity:.5;cursor:not-allowed}
@@ -122,7 +122,7 @@ section{padding:38px 5%}
   justify-content:space-between;
   align-items:end;
   gap:10px;
-  margin-bottom:22px
+  margin-bottom:22px;
 }
 h2{font-size:25px;margin:9px 0 0;letter-spacing:1px;color:#000}
 .muted{color:var(--muted);font-size:12px;line-height:1.7}
@@ -130,7 +130,7 @@ h2{font-size:25px;margin:9px 0 0;letter-spacing:1px;color:#000}
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:9px;
-  margin-bottom:18px
+  margin-bottom:18px;
 }
 .field{
   width:100%;
@@ -139,20 +139,20 @@ h2{font-size:25px;margin:9px 0 0;letter-spacing:1px;color:#000}
   border:1px solid #ded9d0;
   background:#fff;
   color:#000;
-  border-radius:0
+  border-radius:0;
 }
 .filters select{grid-column:1/-1}
 .grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:25px 12px
+  gap:25px 12px;
 }
 .product{min-width:0}
 .photo{
   position:relative;
   aspect-ratio:3/4;
   background:var(--cream);
-  overflow:hidden
+  overflow:hidden;
 }
 .photo-track{
   display:flex;
@@ -163,7 +163,7 @@ h2{font-size:25px;margin:9px 0 0;letter-spacing:1px;color:#000}
   scroll-snap-type:x mandatory;
   scrollbar-width:none;
   -webkit-overflow-scrolling:touch;
-  overscroll-behavior-x:contain
+  overscroll-behavior-x:contain;
 }
 .photo-track::-webkit-scrollbar{display:none}
 .photo-track img{
@@ -172,7 +172,7 @@ h2{font-size:25px;margin:9px 0 0;letter-spacing:1px;color:#000}
   height:100%;
   object-fit:cover;
   display:block;
-  scroll-snap-align:start
+  scroll-snap-align:start;
 }
 .photo-count{
   position:absolute;
@@ -184,7 +184,7 @@ h2{font-size:25px;margin:9px 0 0;letter-spacing:1px;color:#000}
   font-size:10px;
   letter-spacing:.5px;
   pointer-events:none;
-  border-radius:2px
+  border-radius:2px;
 }
 .no-photo{
   height:100%;
@@ -195,13 +195,13 @@ h2{font-size:25px;margin:9px 0 0;letter-spacing:1px;color:#000}
   color:#8b8378;
   padding:12px;
   font-size:11px;
-  letter-spacing:2px
+  letter-spacing:2px;
 }
 .product h3{
   font-size:13px;
   line-height:1.5;
   margin:12px 0 6px;
-  color:#000
+  color:#000;
 }
 .price{font-size:14px;font-weight:bold;color:#000}
 .old{
@@ -209,7 +209,7 @@ h2{font-size:25px;margin:9px 0 0;letter-spacing:1px;color:#000}
   color:var(--muted);
   text-decoration:line-through;
   margin-left:6px;
-  font-weight:normal
+  font-weight:normal;
 }
 .sale{
   display:inline-block;
@@ -217,30 +217,52 @@ h2{font-size:25px;margin:9px 0 0;letter-spacing:1px;color:#000}
   border:1px solid #aaa093;
   padding:4px 6px;
   font-size:9px;
-  letter-spacing:1px
+  letter-spacing:1px;
 }
 .description{
   font-size:11px;
   color:var(--muted);
-  line-height:1.6
+  line-height:1.6;
 }
 .actions{margin-top:12px;display:flex;gap:7px}
 .actions button{flex:1;padding:11px 5px;font-size:9px}
+
 footer{
   border-top:1px solid var(--line);
   padding:32px 5%;
   font-size:11px;
   color:var(--muted);
-  line-height:1.8
+  line-height:1.8;
 }
 footer .logo{font-size:16px}
+.tiktok-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin:8px 0;
+  padding:8px;
+  color:#000;
+  text-decoration:none;
+  transition:opacity .2s;
+}
+.tiktok-link svg{
+  display:block;
+  width:28px;
+  height:28px;
+}
+.tiktok-link:hover{opacity:.65}
+.tiktok-link:focus-visible{
+  outline:2px solid #000;
+  outline-offset:3px;
+}
+
 .overlay{
   position:fixed;
   inset:0;
   background:#0007;
   z-index:20;
   display:none;
-  justify-content:flex-end
+  justify-content:flex-end;
 }
 .overlay.open{display:flex}
 .panel{
@@ -248,13 +270,13 @@ footer .logo{font-size:16px}
   height:100%;
   overflow:auto;
   background:#fff;
-  padding:22px
+  padding:22px;
 }
 .panel-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:20px
+  margin-bottom:20px;
 }
 .panel-head h2{margin:0}
 .close{background:white;border:1px solid var(--line);padding:9px}
@@ -263,13 +285,13 @@ footer .logo{font-size:16px}
   grid-template-columns:70px 1fr;
   gap:12px;
   padding:14px 0;
-  border-bottom:1px solid var(--line)
+  border-bottom:1px solid var(--line);
 }
 .cart-item img{
   width:70px;
   height:85px;
   object-fit:cover;
-  background:var(--cream)
+  background:var(--cream);
 }
 .cart-item h3{font-size:12px;margin:3px 0 8px}
 .qty{
@@ -277,18 +299,18 @@ footer .logo{font-size:16px}
   align-items:center;
   gap:8px;
   flex-wrap:wrap;
-  margin-top:9px
+  margin-top:9px;
 }
 .qty button{
   border:1px solid var(--line);
   background:var(--cream);
-  padding:5px 10px
+  padding:5px 10px;
 }
 .total{
   display:flex;
   justify-content:space-between;
   font-size:18px;
-  margin:24px 0
+  margin:24px 0;
 }
 .label{display:block;font-size:11px;margin:14px 0 7px}
 .empty{
@@ -296,7 +318,7 @@ footer .logo{font-size:16px}
   padding:30px 10px;
   color:var(--muted);
   font-size:13px;
-  line-height:1.8
+  line-height:1.8;
 }
 .notice{font-size:11px;line-height:1.7;color:var(--muted)}
 
@@ -312,7 +334,7 @@ footer .logo{font-size:16px}
 @media(min-width:700px){
   .grid{
     grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:28px
+    gap:28px;
   }
   .filters{grid-template-columns:1fr 1fr 1fr}
   .filters select{grid-column:auto}
@@ -378,6 +400,23 @@ footer .logo{font-size:16px}
 <footer>
   <div class="logo">CULTURE DRIVEN</div>
   <p>Fashion with identity. Style with purpose.</p>
+
+  <a
+    class="tiktok-link"
+    href="https://www.tiktok.com/@culturedriven1"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Visit Culture Driven on TikTok"
+    title="Culture Driven on TikTok"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 24 24"
+         fill="currentColor"
+         aria-hidden="true">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.11V2h-3.5v13.67a2.9 2.9 0 0 1-2.9 2.9A2.9 2.9 0 0 1 6.52 15.7a2.9 2.9 0 0 1 2.9-2.9c.3 0 .6.05.88.14V9.37a6.4 6.4 0 0 0-.88-.06 6.4 6.4 0 1 0 6.4 6.4V9.03a8.28 8.28 0 0 0 4.84 1.55V7.08a4.85 4.85 0 0 1-1.07-.39Z"/>
+    </svg>
+  </a>
+
   <p>© <span id="year"></span> Culture Driven. All rights reserved.</p>
 </footer>
 
